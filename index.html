@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accordion</title>
+    <link rel="stylesheet" href="css/master.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+</head>
+
+<body>
+    <main>
+
+        <svg class="ham hamRotate ham4" id="svg" viewBox="0 0 100 100" width="80">
+            <path class="line top"
+                d="m 70,33 h -40 c 0,0 -8.5,-0.149796 -8.5,8.5 0,8.649796 8.5,8.5 8.5,8.5 h 20 v -20" />
+            <path class="line middle" d="m 70,50 h -40" />
+            <path class="line bottom"
+                d="m 30,67 h 40 c 0,0 8.5,0.149796 8.5,-8.5 0,-8.649796 -8.5,-8.5 -8.5,-8.5 h -20 v 20" />
+        </svg>
+
+        <ul>
+            <li>
+                <div class="row">
+                    <h2>menu</h2>
+                    <span> + </span>
+                </div>
+                <ul class="submenu">
+                    <li>submenu1</li>
+                    <li>submenu2</li>
+                    <li>submenu3</li>
+                </ul>
+            </li>
+            <li>
+                <div class="row">
+                    <h2>menu</h2>
+                    <span> + </span>
+                </div>
+                <ul class="submenu">
+                    <li>submenu1</li>
+                    <li>submenu2</li>
+                    <li>submenu3</li>
+                </ul>
+            </li>
+            <li>
+                <div class="row">
+                    <h2>menu</h2>
+                    <span> + </span>
+                </div>
+                <ul class="submenu">
+                    <li>submenu1</li>
+                    <li>submenu2</li>
+                    <li>submenu3</li>
+                </ul>
+            </li>
+
+        </ul>
+    </main>
+</body>
+<script>
+
+    let _span = document.querySelectorAll('.row span')
+    let _ul = document.querySelectorAll('li .submenu')
+
+    document.getElementById('svg').addEventListener('click', function (e) {
+        e.target.nextElementSibling.classList.toggle('pos')
+        e.target.classList.toggle('active')
+
+        // reset accordion
+        for (let i = 0; i < _ul.length; i++) {
+            _ul[i].style.height = '0px'
+            _ul[i].setAttribute('data-status', true)
+
+        }
+        // reset accordion
+    })
+
+
+
+    console.log(_ul);
+
+    for (let i = 0; i < _ul.length; i++) {
+        let temp = _ul[i].clientHeight
+        _ul[i].setAttribute('data-h', temp)
+        _ul[i].setAttribute('data-status', 'true')
+        _ul[i].style.height = '0px'
+    }
+
+    _span.forEach(function (val) {
+        val.addEventListener('click', function () {
+            let status = val.parentElement.nextElementSibling.getAttribute('data-status')
+
+            // reset
+            for (let i = 0; i < _ul.length; i++) {
+                _ul[i].style.height = '0px'
+                _ul[i].setAttribute('data-status', true)
+
+            }
+            // reset
+
+
+            if (status == 'true') {
+                let _h = val.parentElement.nextElementSibling.getAttribute('data-h')
+                val.parentElement.nextElementSibling.style.height = _h + 'px'
+                val.parentElement.nextElementSibling.setAttribute('data-status', 'false')
+
+            } else {
+                val.parentElement.nextElementSibling.style.height = '0px'
+                val.parentElement.nextElementSibling.setAttribute('data-status', 'true')
+
+            }
+        })
+    })
+</script>
+
+</html>
